@@ -77,4 +77,37 @@ function selectAnswer(selectedOption) {
     nextButton.style.display = 'block';
 }
 
-function nextQuestion()
+function nextQuestion() {
+    currentQuestionIndex++;
+    if (currentQuestionIndex < questions.length) {
+        loadQuestion();
+        nextButton.style.display = 'none';
+    } else {
+        showResult();
+    }
+}
+
+function showResult() {
+    quizContainer.style.display = 'none';
+    nextButton.style.display = 'none';
+    resultContainer.innerHTML = `
+        <p>Viktorīna pabeigta!</p>
+        <p>Jūsu rezultāts: ${score} / ${questions.length}</p>
+    `;
+    restartButton.style.display = 'block';
+}
+
+function restartQuiz() {
+    currentQuestionIndex = 0;
+    score = 0;
+    quizContainer.style.display = 'block';
+    resultContainer.innerHTML = '';
+    restartButton.style.display = 'none';
+    loadQuestion();
+}
+
+window.onload = function() {
+    loadQuestion();
+    nextButton.style.display = 'none';
+    restartButton.style.display = 'none';
+};
